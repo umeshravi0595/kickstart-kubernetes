@@ -22,30 +22,10 @@ spec:
                   operator: In
                   values:
                     - linux
-                - key: node-role.kubernetes.io/worker
+                - key: kubernetes.io/hostname
                   operator: In
                   values:
-                    - worker
-                - key: type
-                  operator: In
-                  values:
-                    - on-premise
-                - key: provider
-                  operator: In
-                  values:
-                    - host
-                - key: service
-                  operator: In
-                  values:
-                    - virtualbox
-                - key: region
-                  operator: In
-                  values:
-                    - local
-                - key: availability_zone
-                  operator: In
-                  values:
-                    - local-c
+                    - minikube
       containers:
         - name: main
           image: sloopstash/redis:v1
@@ -70,18 +50,6 @@ spec:
             - "/etc/supervisord.conf"
           ports:
             - containerPort: 6379
-          readinessProbe:
-            tcpSocket:
-              port: 6379
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            exec:
-              command:
-                - "/usr/local/bin/redis-cli"
-                - "PING"
-            initialDelaySeconds: 15
-            periodSeconds: 20
         - name: log
           image: sloopstash/redis:v1
           imagePullPolicy: IfNotPresent
