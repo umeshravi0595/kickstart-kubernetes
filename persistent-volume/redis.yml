@@ -20,30 +20,10 @@ spec:
             operator: In
             values:
               - linux
-          - key: node-role.kubernetes.io/worker
-            operator: In
-            values:
-              - worker
-          - key: type
-            operator: In
-            values:
-              - on-premise
-          - key: provider
-            operator: In
-            values:
-              - host
-          - key: service
-            operator: In
-            values:
-              - virtualbox
-          - key: region
-            operator: In
-            values:
-              - local
-          - key: availability_zone
-            operator: In
-            values:
-              - local-c
+           - key: kubernetes.io/hostname
+             operator: In
+             values:
+              - minikube
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -67,27 +47,8 @@ spec:
             operator: In
             values:
               - linux
-          - key: node-role.kubernetes.io/worker
-            operator: In
-            values:
-              - worker
-          - key: type
-            operator: In
-            values:
-              - on-premise
-          - key: provider
-            operator: In
-            values:
-              - host
-          - key: service
-            operator: In
-            values:
-              - virtualbox
-          - key: region
-            operator: In
-            values:
-              - local
-          - key: availability_zone
-            operator: In
-            values:
-              - local-c
+           - key: kubernetes.io/hostname
+             operator: In
+             values:
+              - minikube
+          
