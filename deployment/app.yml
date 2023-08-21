@@ -21,30 +21,10 @@ spec:
                   operator: In
                   values:
                     - linux
-                - key: node-role.kubernetes.io/worker
+                - key: kubernetes.io/hostname
                   operator: In
                   values:
-                    - worker
-                - key: type
-                  operator: In
-                  values:
-                    - on-premise
-                - key: provider
-                  operator: In
-                  values:
-                    - host
-                - key: service
-                  operator: In
-                  values:
-                    - virtualbox
-                - key: region
-                  operator: In
-                  values:
-                    - local
-                - key: availability_zone
-                  operator: In
-                  values:
-                    - local-b
+                    - minikube
       containers:
         - name: main
           image: sloopstash/app:v1
@@ -73,24 +53,6 @@ spec:
             - "/etc/supervisord.conf"
           ports:
             - containerPort: 80
-          readinessProbe:
-            exec:
-              command:
-                - "/usr/bin/supervisorctl"
-                - "status"
-                - "nginx"
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              scheme: HTTP
-              path: /health
-              port: 80
-              httpHeaders:
-                - name: Host
-                  value: app.crm
-            initialDelaySeconds: 15
-            periodSeconds: 20
       volumes:
         - name: supervisor-server
           configMap:
